@@ -3,12 +3,12 @@
   hosts: web
   become: yes
   tasks:
-    - name: crear usuario
-      ansible.builtin.user:
-        name: mojito
-        comment: ansible
-        creatre_home: yes
-        password: Mojito
+    # - name: crear usuario
+    #   ansible.builtin.user:
+    #     name: mojito
+    #     comment: ansible
+    #     creatre_home: yes
+    #     password: Mojito
     - name: Dame un mensaje
       ansible.builtin.debug:
         msg: "Bienvenido al mundo de Ansible"
