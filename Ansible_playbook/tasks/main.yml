@@ -1,6 +1,7 @@
 - name: Parcha un conjunto de servidores linux
   # A quienes se les va a operar 
   hosts: all
+  become: yes
   tasks:
     - name: Dame un mensaje
       ansible.builtin.debug:
