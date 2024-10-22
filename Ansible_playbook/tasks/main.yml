@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 - name:
 
 - name: Actualizar todos los paquetes disponibles en RedHat 9
@@ -15,3 +16,17 @@
   when:
     - ansible_distribution == "RedHat"
     - result is succeeded
+=======
+- name: Parcha un conjunto de servidores linux
+  # A quienes se les va a operar 
+  hosts: web
+  become: yes
+  tasks:
+    - name: Dame un mensaje
+      ansible.builtin.debug:
+        msg: "Bienvenido al mundo de Ansible"
+    - name: Actualizar todos los paquetes disponibles en RedHat 9
+      ansible.builtin.dnf:
+        name: '*'
+        state: latest
+>>>>>>> f97352d01e5fc5bdabf2244659568291c35a5fe8
