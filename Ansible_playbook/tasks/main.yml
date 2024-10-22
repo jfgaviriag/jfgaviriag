@@ -1,5 +1,6 @@
+- name:
 
-- name: Actualizar todos los paquetes disponibles en RedHat 8
+- name: Actualizar todos los paquetes disponibles en RedHat 9
   dnf:
     name: '*'
     state: latest

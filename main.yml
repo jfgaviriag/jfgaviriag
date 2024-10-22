@@ -1,0 +1,12 @@
+- name: Parcha un conjunto de servidores linux
+  # A quienes se les va a operar 
+  hosts: web
+  become: yes
+  tasks:
+    - name: Dame un mensaje
+      ansible.builtin.debug:
+        msg: "Bienvenido al mundo de Ansible"
+    - name: Actualizar todos los paquetes disponibles en RedHat 9
+      ansible.builtin.dnf:
+        name: '*'
+        state: latest
