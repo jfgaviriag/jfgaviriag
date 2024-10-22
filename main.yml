@@ -1,8 +1,14 @@
 - name: Parcha un conjunto de servidores linux
-  # A quienes se les va a operar 
+  # A quienes se les va a operar
   hosts: web
   become: yes
   tasks:
+    - name: crear usuario
+      ansible.builtin.user:
+        name: mojito
+        comment: ansible
+        creatre_home: yes
+        password: Mojito
     - name: Dame un mensaje
       ansible.builtin.debug:
         msg: "Bienvenido al mundo de Ansible"
