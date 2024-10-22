@@ -1,0 +1,16 @@
+
+- name: Actualizar todos los paquetes disponibles en RedHat 8
+  dnf:
+    name: '*'
+    state: latest
+    lock_timeout: 3600
+  register: result
+  when:
+    - ansible_distribution == "RedHat"
+    - ansible_distribution_major_version == '9'
+- name: Imprimir mensaje
+  debug:
+    msg: "Se realizó correctamente la actualización del sistema operativo"
+  when:
+    - ansible_distribution == "RedHat"
+    - result is succeeded
