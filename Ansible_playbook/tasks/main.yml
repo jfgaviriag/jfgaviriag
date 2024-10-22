@@ -7,6 +7,6 @@
       ansible.builtin.debug:
         msg: "Bienvenido al mundo de Ansible"
     - name: Actualizar todos los paquetes disponibles en RedHat 9
-      dnf:
+      ansible.builtin.dnf:
         name: '*'
         state: latest
