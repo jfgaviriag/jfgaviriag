@@ -1,6 +1,6 @@
 - name: Parcha un conjunto de servidores linux
   # A quienes se les va a operar 
-  hosts: all
+  hosts: web
   become: yes
   tasks:
     - name: Dame un mensaje
