@@ -1,18 +1,56 @@
-- name: Parcha un conjunto de servidores linux
-  # A quienes se les va a operar
-  hosts: web
-  become: yes
-  tasks:
-    # - name: crear usuario
-    #   ansible.builtin.user:
-    #     name: mojito
-    #     comment: ansible
-    #     creatre_home: yes
-    #     password: Mojito
-    - name: Dame un mensaje
-      ansible.builtin.debug:
-        msg: "Bienvenido al mundo de Ansible"
-    - name: Actualizar todos los paquetes disponibles en RedHat 9
-      ansible.builtin.dnf:
-        name: '*'
-        state: latest
+- name: Asegurarse de que los servicios innecesarios no estén activos
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    enabled: no
+    state: stopped
+  loop:
+    - autofs
+    - avahi-daemon
+    - dhcpd
+    - named
+    - dnsmasq
+    - smb
+    - vsftpd
+    - dovecot
+    - nfs-server
+    - ypserv
+    - cups
+    - rpcbind
+    - rsyncd
+    - snmpd
+    - telnet.socket
+    - tftp.socket
+    - squid
+    - httpd
+    - nginx
+    - xinetd
+    - xorg
+  ignore_errors: yes
+ 
+- name: Verificar y eliminar paquetes de servicios no deseados si es necesario
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: absent
+  loop:
+    - autofs
+    - avahi
+    - dhcp-server
+    - bind
+    - dnsmasq
+    - samba
+    - vsftpd
+    - dovecot
+    - nfs-utils
+    - ypserv
+    - cups
+    - rpcbind
+    - rsync
+    - net-snmp
+    - telnet-server
+    - tftp-server
+    - squid
+    - httpd
+    - nginx
+    - xinetd
+    - xorg-x11-server-Xorg
+  ignore_errors: yes
