@@ -3,9 +3,8 @@
   become: yes
   tasks:
     - name: Asegurarse de que los servicios innecesarios no estén activos
-      ansible.builtin.systemd:
+      ansible.builtin.service:
         name: "{{ item }}"
-        enabled: no
         state: stopped
       loop:
         - autofs
@@ -29,7 +28,6 @@
         - nginx
         - xinetd
         - xorg
-      ignore_errors: yes
 
     - name: Verificar y eliminar paquetes de servicios no deseados si es necesario
       ansible.builtin.package:
@@ -57,4 +55,3 @@
         - nginx
         - xinetd
         - xorg-x11-server-Xorg
-      ignore_errors: yes
