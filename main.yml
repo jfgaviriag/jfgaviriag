@@ -1,56 +1,60 @@
-- name: Asegurarse de que los servicios innecesarios no estén activos
-  ansible.builtin.systemd:
-    name: "{{ item }}"
-    enabled: no
-    state: stopped
-  loop:
-    - autofs
-    - avahi-daemon
-    - dhcpd
-    - named
-    - dnsmasq
-    - smb
-    - vsftpd
-    - dovecot
-    - nfs-server
-    - ypserv
-    - cups
-    - rpcbind
-    - rsyncd
-    - snmpd
-    - telnet.socket
-    - tftp.socket
-    - squid
-    - httpd
-    - nginx
-    - xinetd
-    - xorg
-  ignore_errors: yes
- 
-- name: Verificar y eliminar paquetes de servicios no deseados si es necesario
-  ansible.builtin.package:
-    name: "{{ item }}"
-    state: absent
-  loop:
-    - autofs
-    - avahi
-    - dhcp-server
-    - bind
-    - dnsmasq
-    - samba
-    - vsftpd
-    - dovecot
-    - nfs-utils
-    - ypserv
-    - cups
-    - rpcbind
-    - rsync
-    - net-snmp
-    - telnet-server
-    - tftp-server
-    - squid
-    - httpd
-    - nginx
-    - xinetd
-    - xorg-x11-server-Xorg
-  ignore_errors: yes
+- name: Aplicar controles
+  hosts: web
+  become: yes
+  tasks:
+    - name: Asegurarse de que los servicios innecesarios no estén activos
+      ansible.builtin.systemd:
+        name: "{{ item }}"
+        enabled: no
+        state: stopped
+      loop:
+        - autofs
+        - avahi-daemon
+        - dhcpd
+        - named
+        - dnsmasq
+        - smb
+        - vsftpd
+        - dovecot
+        - nfs-server
+        - ypserv
+        - cups
+        - rpcbind
+        - rsyncd
+        - snmpd
+        - telnet.socket
+        - tftp.socket
+        - squid
+        - httpd
+        - nginx
+        - xinetd
+        - xorg
+      ignore_errors: yes
+
+    - name: Verificar y eliminar paquetes de servicios no deseados si es necesario
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: absent
+      loop:
+        - autofs
+        - avahi
+        - dhcp-server
+        - bind
+        - dnsmasq
+        - samba
+        - vsftpd
+        - dovecot
+        - nfs-utils
+        - ypserv
+        - cups
+        - rpcbind
+        - rsync
+        - net-snmp
+        - telnet-server
+        - tftp-server
+        - squid
+        - httpd
+        - nginx
+        - xinetd
+        - xorg-x11-server-Xorg
+      ignore_errors: yes
