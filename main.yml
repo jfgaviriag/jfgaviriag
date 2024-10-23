@@ -135,3 +135,67 @@
       ansible.builtin.service:
         name: sshd
         state: restarted
+
+    - name: Asegurar que las redirecciones ICMP de origen no sean aceptadas (Control 3.3.1)
+      ansible.posix.sysctl:
+        name: net.ipv4.conf.all.accept_source_route
+        value: '0'
+        sysctl_set: true
+        state: present
+        reload: yes
+
+    - name: Asegurar que las redirecciones ICMP no sean aceptadas (Control 3.3.2)
+      ansible.posix.sysctl:
+        name: net.ipv4.conf.all.accept_redirects
+        value: '0'
+        sysctl_set: true
+        state: present
+        reload: yes
+
+    - name: Asegurar que las redirecciones ICMP seguras no sean aceptadas (Control 3.3.3)
+      ansible.posix.sysctl:
+        name: net.ipv4.conf.all.secure_redirects
+        value: '0'
+        sysctl_set: true
+        state: present
+        reload: yes
+
+    - name: Asegurar que los paquetes sospechosos sean registrados (Control 3.3.4)
+      ansible.posix.sysctl:
+        name: net.ipv4.conf.all.log_martians
+        value: '1'
+        sysctl_set: true
+        state: present
+        reload: yes
+
+    - name: Asegurar que las peticiones ICMP broadcast sean ignoradas (Control 3.3.5)
+      ansible.posix.sysctl:
+        name: net.ipv4.icmp_echo_ignore_broadcasts
+        value: '1'
+        sysctl_set: true
+        state: present
+        reload: yes
+
+    - name: Asegurar que las respuestas ICMP falsas sean ignoradas (Control 3.3.6)
+      ansible.posix.sysctl:
+        name: net.ipv4.icmp_ignore_bogus_error_responses
+        value: '1'
+        sysctl_set: true
+        state: present
+        reload: yes
+
+    - name: Asegurar que el filtrado de ruta inversa esté habilitado (Control 3.3.7)
+      ansible.posix.sysctl:
+        name: net.ipv4.conf.all.rp_filter
+        value: '1'
+        sysctl_set: true
+        state: present
+        reload: yes
+
+    - name: Asegurar que las cookies TCP SYN estén habilitadas (Control 3.3.8)
+      ansible.posix.sysctl:
+        name: net.ipv4.tcp_syncookies
+        value: '1'
+        sysctl_set: true
+        state: present
+        reload: yes
