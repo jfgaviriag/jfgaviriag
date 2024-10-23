@@ -73,13 +73,65 @@
         regexp: '^LogLevel'
         line: 'LogLevel INFO'
 
-    - name: Reinicio servicio SSH  
-      ansible.builtin.service:
-        name: sshd
-        state: restarted
-
     - name: Configurar política de auditoría para modificaciones de privilegios sudo
       ansible.builtin.lineinfile:
         path: /etc/audit/rules.d/audit.rules
         line: '-w /etc/sudoers -p wa -k actions'
         create: yes
+        
+    - name: Configurar el banner en /etc/issue
+      ansible.builtin.copy:
+        dest: /etc/issue
+        content: |
+          ********************************************************************
+          * ATENCIÓN: Este sistema es propiedad de Mojito. *
+          * El acceso no autorizado o su uso indebido está estrictamente prohibido *
+          * y puede ser sancionado legalmente.                                  *
+          ********************************************************************
+
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Configurar el banner en /etc/issue.net
+      ansible.builtin.copy:
+        dest: /etc/issue.net
+        content: |
+          ********************************************************************
+          * ATENCIÓN: Este sistema es propiedad de Mojito. *
+          * El acceso no autorizado o su uso indebido está estrictamente prohibido *
+          * y puede ser sancionado legalmente.                                  *
+          ********************************************************************
+
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Configurar el banner en /etc/motd mensaje del dia
+      ansible.builtin.copy:
+        dest: /etc/motd
+        content: |
+          ********************************************************************
+          * ATENCIÓN: Este sistema es propiedad de Mojito. *
+          * El acceso no autorizado o su uso indebido está estrictamente prohibido *
+          * y puede ser sancionado legalmente.                                  *
+          ********************************************************************
+
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Asegurar que SSH esté configurado para mostrar el banner
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^Banner'
+        line: 'Banner /etc/issue.net'
+        create: yes
+        owner: root
+        group: root
+        mode: '0600'
+
+    - name: Reinicio servicio SSH  
+      ansible.builtin.service:
+        name: sshd
+        state: restarted
