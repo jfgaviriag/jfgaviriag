@@ -72,6 +72,8 @@
         path: /etc/ssh/sshd_config
         regexp: '^LogLevel'
         line: 'LogLevel INFO'
-      ansible.builtin.service:
-        name: sshd
-        state: restarted
+
+      - name: Reinicio servicio SSH  
+        ansible.builtin.service:
+          name: sshd
+          state: restarted
