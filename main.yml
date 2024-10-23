@@ -79,7 +79,7 @@
         state: restarted
 
      - name: Configurar política de auditoría para modificaciones de privilegios sudo
-        ansible.builtin.lineinfile:
-          path: /etc/audit/rules.d/audit.rules
-          line: '-w /etc/sudoers -p wa -k actions'
-          create: yes
+       ansible.builtin.lineinfile:
+         path: /etc/audit/rules.d/audit.rules
+         line: '-w /etc/sudoers -p wa -k actions'
+         create: yes
