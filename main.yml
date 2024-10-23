@@ -58,7 +58,6 @@
         - xinetd
         - xorg-x11-server-Xorg
 
-# 1.1.1.1 - Deshabilitar módulos innecesarios del kernel
     - name: Deshabilitar módulo de cramfs
       ansible.builtin.shell: "modprobe -r cramfs"
       
@@ -67,3 +66,10 @@
         path: /etc/modprobe.d/CIS.conf
         line: "install cramfs /bin/true"
         create: yes
+
+    - name: Habilitar LogLevel INFO
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^LogLevel'
+        line: 'LogLevel INFO'
+      notify: Restart SSH
