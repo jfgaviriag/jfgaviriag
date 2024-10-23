@@ -73,3 +73,6 @@
         regexp: '^LogLevel'
         line: 'LogLevel INFO'
       notify: Restart SSH
+      ansible.builtin.service:
+        name: sshd
+        state: restarted
